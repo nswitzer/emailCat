@@ -14,29 +14,28 @@ try {
 // @TODO: Autodetect location of files in unarchived directory
 $allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
 
-// ...and empty arrays to fill with extracted content
-$allDatesSent = array();
-$allSenders = array();
-$allSubjects = array();
+// ...and an empty array to fill with extracted content
 
+$outputData = array();
 // Loop through array of messages and create arrays of data for output
 // @TODO: Build emailPath more dynamically
 foreach ($allFiles as $file) {
+  // Define the path to the file and create a parser
   $emailPath = 'data/smallset/' . $file;
   $emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
 
-  $emailDateSent = $emailParser->getHeader('Date');
-  $emailSender = $emailParser->getHeader('From');
-  $emailSubject = $emailParser->getSubject();
+  // Temp var to build associative arrays of output data
+  $item = array();
 
-  $allDatesSent[] = $emailDateSent;
-  $allSenders[] = $emailSender;
-  $allSubjects[] = $emailSubject;
+  // Grab the content we need from the email header and add to our temp array
+  $item['date'] = $emailParser->getHeader('Date');
+  $item['sender'] = $emailParser->getHeader('From');
+  $item['subject'] = $emailParser->getSubject();
+
+  // Add data to our final array of output data
+  $outputData[] = $item;
 }
-
-k($allDatesSent);
-k($allSenders);
-k($allSubjects);
+k($outputData);
 
 // Write output data to CSV file
 
