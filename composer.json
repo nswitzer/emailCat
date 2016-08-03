@@ -1,5 +1,8 @@
 {
     "require": {
         "floriansemm/official-library-php-email-parser": "^1.0"
+    },
+    "require-dev": {
+        "mmucklo/krumo": "^0.5.7"
     }
 }
