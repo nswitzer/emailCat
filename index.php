@@ -15,8 +15,8 @@ try {
 $allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
 
 // ...and an empty array to fill with extracted content
-
 $outputData = array();
+
 // Loop through array of messages and create arrays of data for output
 // @TODO: Build emailPath more dynamically
 foreach ($allFiles as $file) {
