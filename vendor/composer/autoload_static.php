@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit04fc6ad9111a73f1051b98de37e7ed01
 {
+    public static $files = array (
+        'efd893c01f001f6c8c594ea00713c08c' => __DIR__ . '/..' . '/mmucklo/krumo/class.krumo.php',
+    );
+
     public static $prefixesPsr0 = array (
         'P' => 
         array (
