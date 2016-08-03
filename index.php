@@ -1,6 +1,12 @@
 <?php
 
 // Extract archive
+try {
+  $emailArchive = new PharData('data/sampleEmailstar.gz');
+  $emailArchive->extractTo('data');
+} catch (Exception $e) {
+  // handle errors
+}
 
 // Create array of messages
 
