@@ -1,0 +1,5 @@
+{
+    "require": {
+        "floriansemm/official-library-php-email-parser": "^1.0"
+    }
+}

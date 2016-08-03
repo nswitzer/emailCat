@@ -1,0 +1,45 @@
+[
+    {
+        "name": "floriansemm/official-library-php-email-parser",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/floriansemm/official-library-php-email-parser.git",
+            "reference": "e7453ead1f3a74810d8050a30afb96feed74477a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/floriansemm/official-library-php-email-parser/zipball/e7453ead1f3a74810d8050a30afb96feed74477a",
+            "reference": "e7453ead1f3a74810d8050a30afb96feed74477a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-04-28 12:24:59",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "PlancakeEmailParser": "."
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPLv3"
+        ],
+        "authors": [
+            {
+                "name": "Daniele Occhipinti",
+                "email": "dan@plancake.com"
+            }
+        ],
+        "description": "Plancake Email Parser is a simple emailparser for php",
+        "homepage": "http://www.plancake.com",
+        "keywords": [
+            "email",
+            "parser"
+        ]
+    }
+]
