@@ -11,6 +11,7 @@ try {
 }
 
 // Create array of messages...
+// @TODO: Autodetect location of files in unarchived directory
 $allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
 
 // ...and empty arrays to fill with extracted content
@@ -19,6 +20,7 @@ $allSenders = array();
 $allSubjects = array();
 
 // Loop through array of messages and create arrays of data for output
+// @TODO: Build emailPath more dynamically
 foreach ($allFiles as $file) {
   $emailPath = 'data/smallset/' . $file;
   $emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
@@ -31,6 +33,10 @@ foreach ($allFiles as $file) {
   $allSenders[] = $emailSender;
   $allSubjects[] = $emailSubject;
 }
+
+k($allDatesSent);
+k($allSenders);
+k($allSubjects);
 
 // Write output data to CSV file
 
