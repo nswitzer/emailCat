@@ -8,7 +8,13 @@ try {
   // handle errors
 }
 
-// Create array of messages
+// Create array of messages...
+$allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
+
+// ...and empty arrays to fill with extracted content
+$allDatesSent = array();
+$allSenders = array();
+$allSubjects = array();
 
 // Loop through array of messages and create arrays of data for output
 
