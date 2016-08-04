@@ -2,9 +2,27 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+// Form handling
+if (isset($_FILES['emailArchiveUpload'])) {
+  $errors = array();
+  $fileName = $_FILES['emailArchiveUpload']['name'];
+  $fileTmp =$_FILES['emailArchiveUpload']['tmp_name'];
+  $fileExt = strtolower(end(explode('.',$fileName)));
+  $allowedExt = array('gz');
+
+  if (in_array($fileExt, $allowedExt) == FALSE) {
+    $errors[] = 'Invalid file extension!';
+  }
+
+  if (empty($errors) == TRUE) {
+    move_uploaded_file($fileTmp, 'data/' . $fileName);
+  }
+}
+
+
 // Extract archive
 try {
-  $emailArchive = new PharData('data/sampleEmailstar.gz');
+  $emailArchive = new PharData('data/' . $fileName);
   $emailArchive->extractTo('data');
 } catch (Exception $e) {
   // handle errors
