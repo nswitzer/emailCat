@@ -28,7 +28,7 @@ foreach ($allFiles as $file) {
   $item = array();
 
   // Grab the content we need from the email header and add to our temp array
-  $item['date'] = $emailParser->getHeader('Date');
+  $item['sendDate'] = $emailParser->getHeader('Date');
   $item['sender'] = $emailParser->getHeader('From');
   $item['subject'] = $emailParser->getSubject();
 
@@ -38,5 +38,23 @@ foreach ($allFiles as $file) {
 k($outputData);
 
 // Write output data to CSV file
+
+/**
+ * Pass in filename and associative data array, get a csv back.
+ * @param $fileName
+ * @param $emailData
+ */
+function outputCsv($fileName, $emailData) {
+  $fp = fopen('data/' . $fileName, 'w');
+
+  fputcsv($fp, array_keys($emailData['0']));
+  foreach ($emailData as $values) {
+    fputcsv($fp, $values);
+  }
+
+  fclose($fp);
+};
+
+outputCsv('emaildata.csv', $outputData);
 
 ?>
