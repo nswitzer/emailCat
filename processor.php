@@ -63,14 +63,16 @@ k($outputData);
  * @param $emailData
  */
 function outputCsv($fileName, $emailData) {
-  $fp = fopen('data/' . $fileName, 'w');
+  if (isset($emailData['0'])) {
+    $fp = fopen('data/' . $fileName, 'w');
 
-  fputcsv($fp, array_keys($emailData['0']));
-  foreach ($emailData as $values) {
-    fputcsv($fp, $values);
+    fputcsv($fp, array_keys($emailData['0']));
+    foreach ($emailData as $values) {
+      fputcsv($fp, $values);
+    }
+
+    fclose($fp);
   }
-
-  fclose($fp);
 };
 
 outputCsv('emaildata.csv', $outputData);
