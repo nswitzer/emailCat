@@ -27,28 +27,39 @@ extractArchive($fileName);
 // @TODO: Autodetect location of files in unarchived directory
 $allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
 
-// ...and an empty array to fill with extracted content
-$outputData = array();
+$allData = retrieveData($allFiles);
 
-// Loop through array of messages and create arrays of data for output
-// @TODO: Build emailPath more dynamically
-foreach ($allFiles as $file) {
-  // Define the path to the file and create a parser
-  $emailPath = 'data/smallset/' . $file;
-  $emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
+outputCsv('emaildata.csv', $allData);
 
-  // Temp var to build associative arrays of output data
-  $item = array();
+/**
+ * Parses a directory of emails and retrieves data, sender and subject data
+ * from headers.
+ * @param $emailDirectory
+ * @return array of all data, sender and subject data
+ */
+function retrieveData($emailDirectory) {
+  $outputData = array();
 
-  // Grab the content we need from the email header and add to our temp array
-  $item['sendDate'] = $emailParser->getHeader('Date');
-  $item['sender'] = $emailParser->getHeader('From');
-  $item['subject'] = $emailParser->getSubject();
+  // Loop through array of messages and create arrays of data for output
+  // @TODO: Build emailPath more dynamically
+  foreach ($emailDirectory as $file) {
+    // Define the path to the file and create a parser
+    $emailPath = 'data/smallset/' . $file;
+    $emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
 
-  // Add data to our final array of output data
-  $outputData[] = $item;
+    // Temp var to build associative arrays of output data
+    $item = array();
+
+    // Grab the content we need from the email header and add to our temp array
+    $item['sendDate'] = $emailParser->getHeader('Date');
+    $item['sender'] = $emailParser->getHeader('From');
+    $item['subject'] = $emailParser->getSubject();
+
+    // Add data to our final array of output data
+    $outputData[] = $item;
+  }
+  return $outputData;
 }
-k($outputData);
 
 function extractArchive($archiveName) {
   try {
@@ -78,7 +89,5 @@ function outputCsv($fileName, $emailData) {
     fclose($fp);
   }
 }
-
-outputCsv('emaildata.csv', $outputData);
 
 ?>
