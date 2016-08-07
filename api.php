@@ -2,40 +2,6 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-// Form handling
-if (isset($_FILES['emailArchiveUpload'])) {
-  $errors = array();
-  $fileName = $_FILES['emailArchiveUpload']['name'];
-  $fileTmp =$_FILES['emailArchiveUpload']['tmp_name'];
-  $fileExt = strtolower(end(explode('.',$fileName)));
-  $allowedExt = array('gz');
-
-  if (in_array($fileExt, $allowedExt) == FALSE) {
-    $errors[] = 'Invalid file extension!';
-  }
-
-  if (empty($errors) == TRUE) {
-    move_uploaded_file($fileTmp, 'data/' . $fileName);
-  } else {
-    echo '<ul>';
-    foreach ($errors as $error) {
-      echo '<li>' . $error . '</li>';
-    }
-    echo '</ul>';
-    exit();
-  }
-}
-
-extractArchive($fileName);
-
-// Create array of messages to send to retrieveData
-// @TODO: Autodetect location of files in unarchived directory
-$allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
-
-$allData = retrieveData($allFiles);
-
-outputCsv('emaildata.csv', $allData);
-
 /**
  * Parses a directory of emails and retrieves data, sender and subject data
  * from headers.
@@ -95,6 +61,7 @@ function outputCsv($fileName, $emailData) {
     }
 
     fclose($fp);
+    echo '<div class="messages success">Success!</div>';
   }
 }
 
