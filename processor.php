@@ -19,11 +19,9 @@ if (isset($_FILES['emailArchiveUpload'])) {
   }
 }
 
-
-// Extract archive
 extractArchive($fileName);
 
-// Create array of messages...
+// Create array of messages to send to retrieveData
 // @TODO: Autodetect location of files in unarchived directory
 $allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
 
@@ -37,14 +35,14 @@ outputCsv('emaildata.csv', $allData);
  * @param $emailDirectory
  * @return array of all data, sender and subject data
  */
-function retrieveData($emailDirectory) {
+function retrieveData($emailMessages) {
   $outputData = array();
 
   // Loop through array of messages and create arrays of data for output
   // @TODO: Build emailPath more dynamically
-  foreach ($emailDirectory as $file) {
+  foreach ($emailMessages as $message) {
     // Define the path to the file and create a parser
-    $emailPath = 'data/smallset/' . $file;
+    $emailPath = 'data/smallset/' . $message;
     $emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
 
     // Temp var to build associative arrays of output data
@@ -61,6 +59,10 @@ function retrieveData($emailDirectory) {
   return $outputData;
 }
 
+/**
+ * Extracts uploaded archive file to data directory
+ * @param $archiveName
+ */
 function extractArchive($archiveName) {
   try {
     $emailArchive = new PharData('data/' . $archiveName);
@@ -70,10 +72,9 @@ function extractArchive($archiveName) {
   }
 }
 
-// Write output data to CSV file
-
 /**
- * Pass in filename and associative data array, get a csv back.
+ * Builds and outputs a CSV file containing data, sender and subject data for
+ * all emails included in the uploaded archive
  * @param $fileName
  * @param $emailData
  */
