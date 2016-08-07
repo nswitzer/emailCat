@@ -21,12 +21,7 @@ if (isset($_FILES['emailArchiveUpload'])) {
 
 
 // Extract archive
-try {
-  $emailArchive = new PharData('data/' . $fileName);
-  $emailArchive->extractTo('data');
-} catch (Exception $e) {
-  // handle errors
-}
+extractArchive($fileName);
 
 // Create array of messages...
 // @TODO: Autodetect location of files in unarchived directory
@@ -54,6 +49,15 @@ foreach ($allFiles as $file) {
   $outputData[] = $item;
 }
 k($outputData);
+
+function extractArchive($archiveName) {
+  try {
+    $emailArchive = new PharData('data/' . $archiveName);
+    $emailArchive->extractTo('data');
+  } catch (Exception $e) {
+    // handle errors
+  }
+}
 
 // Write output data to CSV file
 
