@@ -16,6 +16,13 @@ if (isset($_FILES['emailArchiveUpload'])) {
 
   if (empty($errors) == TRUE) {
     move_uploaded_file($fileTmp, 'data/' . $fileName);
+  } else {
+    echo '<ul>';
+    foreach ($errors as $error) {
+      echo '<li>' . $error . '</li>';
+    }
+    echo '</ul>';
+    exit();
   }
 }
 
