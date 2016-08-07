@@ -77,7 +77,7 @@ function outputCsv($fileName, $emailData) {
 
     fclose($fp);
   }
-};
+}
 
 outputCsv('emaildata.csv', $outputData);
 
