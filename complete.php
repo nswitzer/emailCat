@@ -18,7 +18,7 @@ if (isset($_FILES['emailArchiveUpload'])) {
   }
 
   if (empty($errors) == TRUE) {
-    move_uploaded_file($fileTmp, 'data/' . $fileName);
+    storeArchive($fileTmp, $fileName);
 
     extractArchive($fileName);
 

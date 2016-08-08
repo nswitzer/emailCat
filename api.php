@@ -3,6 +3,19 @@
 require __DIR__ . '/vendor/autoload.php';
 
 /**
+ * Checks if data directory exists and moves uploaded file to a permanent
+ * storage location.
+ * @param $fileLocation
+ * @param $fileName
+ */
+function storeArchive($fileLocation, $fileName) {
+  if (!file_exists('data')) {
+    mkdir('data', 0777);
+  }
+  move_uploaded_file($fileLocation, 'data/' . $fileName);
+}
+
+/**
  * Parses a directory of emails and retrieves data, sender and subject data
  * from headers.
  * @param $emailDirectory
