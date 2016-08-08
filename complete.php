@@ -28,11 +28,11 @@ if (isset($_FILES['emailArchiveUpload'])) {
 
     extractArchive($fileName);
 
-    // Create array of messages to send to retrieveData
-    // @TODO: Autodetect location of files in unarchived directory
-    $allFiles = retrieveFileList('data/smallset');
+    $extractedDir = retrieveExtractedDir();
 
-    $allData = retrieveData($allFiles);
+    $allFiles = retrieveFileList($extractedDir);
+
+    $allData = retrieveData($allFiles, $extractedDir);
 
     outputCsv('emaildata.csv', $allData);
   } else {

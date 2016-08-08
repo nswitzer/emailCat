@@ -22,10 +22,20 @@ function storeArchive($fileLocation, $fileName) {
 function extractArchive($archiveName) {
   try {
     $emailArchive = new PharData('data/' . $archiveName);
-    $emailArchive->extractTo('data');
+    $emailArchive->extractTo('data/extracted');
   } catch (Exception $e) {
     // handle errors
   }
+}
+
+/**
+ * Scan extracted directory and return path to it's contents
+ * @return string
+ */
+function retrieveExtractedDir() {
+  $extractedDir = array_diff(scandir('data/extracted'), array('.', '..'));
+  $extractedDir = 'data/extracted/' . $extractedDir[2];
+  return $extractedDir;
 }
 
 /**
@@ -45,14 +55,14 @@ function retrieveFileList ($path) {
  * @param $emailDirectory
  * @return array of all data, sender and subject data
  */
-function retrieveData($emailMessages) {
+function retrieveData($emailMessages, $extractedDir) {
   $outputData = array();
 
   // Loop through array of messages and create arrays of data for output
   // @TODO: Receive extracted directory path as function parameter
   foreach ($emailMessages as $message) {
     // Define the path to the file and create a parser
-    $emailPath = 'data/smallset/' . $message;
+    $emailPath = $extractedDir . '/' . $message;
     $emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
 
     // Temp var to build associative arrays of output data
