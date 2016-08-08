@@ -1,5 +1,11 @@
-<title>EmailCat | ConCATenate your email data now!</title>
-<link rel="stylesheet" href="css/main.css" type="text/css">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EmailCat | ConCATenate your email data now!</title>
+  <link href='https://fonts.googleapis.com/css?family=Oswald:300,400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/main.css" type="text/css">
+</head>
+<body>
 
 <?php
 
@@ -24,7 +30,7 @@ if (isset($_FILES['emailArchiveUpload'])) {
 
     // Create array of messages to send to retrieveData
     // @TODO: Autodetect location of files in unarchived directory
-    $allFiles = array_diff(scandir('data/smallset'), array('.', '..'));
+    $allFiles = retrieveFileList('data/smallset');
 
     $allData = retrieveData($allFiles);
 
@@ -40,3 +46,6 @@ if (isset($_FILES['emailArchiveUpload'])) {
 }
 
 ?>
+
+</body>
+</html>

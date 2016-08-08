@@ -25,7 +25,7 @@ function retrieveData($emailMessages) {
   $outputData = array();
 
   // Loop through array of messages and create arrays of data for output
-  // @TODO: Build emailPath more dynamically
+  // @TODO: Receive extracted directory path as function parameter
   foreach ($emailMessages as $message) {
     // Define the path to the file and create a parser
     $emailPath = 'data/smallset/' . $message;
@@ -56,6 +56,17 @@ function extractArchive($archiveName) {
   } catch (Exception $e) {
     // handle errors
   }
+}
+
+/**
+ * Given the path to the archive's extracted dir, return an array of all
+ * files contained within the extracted dir.
+ * @param $path
+ * @return array
+ */
+function retrieveFileList ($path) {
+  $fileList = array_diff(scandir($path), array('.', '..'));
+  return $fileList;
 }
 
 /**
