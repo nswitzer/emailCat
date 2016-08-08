@@ -7,7 +7,7 @@ body {
   font-weight: 300;
   font-size: 16px;
   margin: 0;
-  padding: 0;
+  padding: 40px 0 0 0;
   background: #b3d6ff;
   color: #333333;
 }
@@ -21,7 +21,7 @@ h2 {
 form {
   background: #d7d7d7;
   width: 50%;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 20px;
   border: 5px solid #a7a7a7;
 }
