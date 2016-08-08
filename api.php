@@ -16,6 +16,30 @@ function storeArchive($fileLocation, $fileName) {
 }
 
 /**
+ * Extracts uploaded archive file to data directory
+ * @param $archiveName
+ */
+function extractArchive($archiveName) {
+  try {
+    $emailArchive = new PharData('data/' . $archiveName);
+    $emailArchive->extractTo('data');
+  } catch (Exception $e) {
+    // handle errors
+  }
+}
+
+/**
+ * Given the path to the archive's extracted dir, return an array of all
+ * files contained within the extracted dir.
+ * @param $path
+ * @return array
+ */
+function retrieveFileList ($path) {
+  $fileList = array_diff(scandir($path), array('.', '..'));
+  return $fileList;
+}
+
+/**
  * Parses a directory of emails and retrieves data, sender and subject data
  * from headers.
  * @param $emailDirectory
@@ -43,30 +67,6 @@ function retrieveData($emailMessages) {
     $outputData[] = $item;
   }
   return $outputData;
-}
-
-/**
- * Extracts uploaded archive file to data directory
- * @param $archiveName
- */
-function extractArchive($archiveName) {
-  try {
-    $emailArchive = new PharData('data/' . $archiveName);
-    $emailArchive->extractTo('data');
-  } catch (Exception $e) {
-    // handle errors
-  }
-}
-
-/**
- * Given the path to the archive's extracted dir, return an array of all
- * files contained within the extracted dir.
- * @param $path
- * @return array
- */
-function retrieveFileList ($path) {
-  $fileList = array_diff(scandir($path), array('.', '..'));
-  return $fileList;
 }
 
 /**
