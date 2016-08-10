@@ -34,7 +34,9 @@ if (isset($_FILES['emailArchiveUpload'])) {
 
     $allData = retrieveData($allFiles, $extractedDir);
 
-    outputCsv('emaildata.csv', $allData);
+    outputTxt('emaildata.txt', $allData);
+
+//    outputCsv('emaildata.csv', $allData);
   } else {
     echo '<div class="messages failure"><ul>';
     foreach ($errors as $error) {

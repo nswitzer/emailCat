@@ -69,9 +69,10 @@ function retrieveData($emailMessages, $extractedDir) {
     $item = array();
 
     // Grab the content we need from the email header and add to our temp array
+    $item['filePath'] = $extractedDir . '/' . $message;
     $item['sendDate'] = $emailParser->getHeader('Date');
     $item['sender'] = $emailParser->getHeader('From');
-    $item['subject'] = $emailParser->getSubject();
+    $item['subject'] = $emailParser->getHeader('Subject');
 
     // Add data to our final array of output data
     $outputData[] = $item;
@@ -80,7 +81,7 @@ function retrieveData($emailMessages, $extractedDir) {
 }
 
 /**
- * Builds and outputs a CSV file containing data, sender and subject data for
+ * Builds and outputs a CSV file containing date, sender and subject data for
  * all emails included in the uploaded archive
  * @param $fileName
  * @param $emailData
@@ -97,6 +98,22 @@ function outputCsv($fileName, $emailData) {
     fclose($fp);
     echo '<div class="messages success">Success!</div>';
   }
+}
+
+
+/**
+ * Builds and outputs a txt file containing message path, date, sender and
+ * subject data for all emails included in the uploaded archive.
+ * @param $fileName
+ * @param $emailData
+ */
+function outputTxt($fileName, $emailData) {
+  $file = fopen('data/' . $fileName, 'w');
+  foreach ($emailData as $values) {
+    fwrite($file, implode('|', $values) . PHP_EOL);
+  }
+  fclose($file);
+  echo '<div class="messages success">Success!</div>';
 }
 
 ?>
